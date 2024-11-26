@@ -1,0 +1,19 @@
+source venv/bin/activate
+python manage.py runserver
+
+
+--postgress
+psql -U postgres
+
+
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+
+superuser
+leonardolocatelli
+leolocatelli30@gmail.com
+Admin1234
+
+
+Etapa 3: Gerenciamento de Tarefas
