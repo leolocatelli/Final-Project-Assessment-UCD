@@ -1,31 +1,48 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h2>Editar Tarefa</h2>
 
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
+{% if messages %} {% for message in messages %}
+<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %} {% endif %}
 
 <form method="POST">
-    {% csrf_token %}
-    <label for="title">Título:</label>
-    <input type="text" name="title" id="title" value="{{ task.title }}" required>
-    <br>
-    <label for="description">Descrição:</label>
-    <textarea name="description" id="description">{{ task.description }}</textarea>
-    <br>
-    <label for="due_date">Data de Vencimento:</label>
-    <input type="date" name="due_date" id="due_date" value="{{ task.due_date|date:'Y-m-d' }}">
-    <br>
-    <label for="completed">Concluída:</label>
-    <input type="checkbox" name="completed" id="completed" {% if task.completed %}checked{% endif %}>
-    <br>
-    <button type="submit">Salvar Alterações</button>
+  {% csrf_token %}
+  <label for="title">Título:</label>
+  <input
+    type="text"
+    name="title"
+    id="title"
+    value="{{ task.title }}"
+    required
+  />
+  <br />
+  <label for="description">Descrição:</label>
+  <textarea name="description" id="description">
+{{ task.description }}</textarea
+  >
+  <br />
+  <label for="due_date">Data de Vencimento:</label>
+  <input
+    type="date"
+    name="due_date"
+    id="due_date"
+    value="{{ task.due_date|date:'Y-m-d' }}"
+  />
+  <br />
+  <label for="completed">Concluída:</label>
+  <input
+    type="checkbox"
+    name="completed"
+    id="completed"
+    {%
+    if
+    task.completed
+    %}checked{%
+    endif
+    %}
+  />
+  <br />
+  <button type="submit">Salvar Alterações</button>
 </form>
 
 <a href="{% url 'delete_task' task.id %}">Excluir Tarefa</a>
