@@ -1,5 +1,7 @@
 source venv/bin/activate
-python manage.py runserver
+python3 manage.py runserver
+pip3 install django-webpack-loader
+
 
 
 --postgress
@@ -16,4 +18,22 @@ leolocatelli30@gmail.com
 Admin1234
 
 
-Etapa 3: Gerenciamento de Tarefas
+GITHUB
+git add .
+git commit -m "Sua mensagem de commit"
+git push origin main
+git log --oneline
+git checkout
+git stash
+git checkout
+
+
+shell
+python manage.py shell
+exit()
+
+
+Etapa 1: Setup do Django e PostgreSQL - Concluído.
+Etapa 2: Sistema de Autenticação de Usuários - Concluído.
+Etapa 3: CRUD de Tarefas - Concluído (Listar, Criar, Editar e Deletar tarefas).
+Etapa 4: Integração Frontend com React - Essa etapa é a próxima que devemos iniciar.
