@@ -33,6 +33,12 @@ python manage.py shell
 exit()
 
 
+Acessando o PostgreSQL
+psql -U taskuser -d task_management
+\d tasks_task;
+\q
+
+
 Etapa 1: Setup do Django e PostgreSQL - Concluído.
 Etapa 2: Sistema de Autenticação de Usuários - Concluído.
 Etapa 3: CRUD de Tarefas - Concluído (Listar, Criar, Editar e Deletar tarefas).

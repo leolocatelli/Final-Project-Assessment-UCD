@@ -3,12 +3,15 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.utils import timezone
+from django.conf import settings
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
+    name = models.CharField(max_length=100)
+    
     def __str__(self):
         return self.name
+
 
 
 class Task(models.Model):
@@ -17,8 +20,9 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField(default=timezone.now)
     completed = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    # Remova a linha abaixo
+    # category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
