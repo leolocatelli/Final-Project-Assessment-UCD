@@ -1,5 +1,33 @@
 <h1>Lista de Tarefas</h1>
 
+<!-- Formulário de Filtros -->
+<form method="get" class="filters">
+    <!-- Filtro por Status -->
+    <label for="status">Status:</label>
+    <select name="status" id="status" onchange="this.form.submit()">
+        <option value="">Todos</option>
+        <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Concluídas</option>
+        <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pendentes</option>
+    </select>
+
+    <!-- Filtro por Atraso -->
+    <label for="delay">Atraso:</label>
+    <select name="delay" id="delay" onchange="this.form.submit()">
+        <option value="">Todos</option>
+        <option value="delayed" {% if request.GET.delay == 'delayed' %}selected{% endif %}>Atrasadas</option>
+    </select>
+
+    <!-- Ordenação -->
+    <label for="sort">Ordenar por:</label>
+    <select name="sort" id="sort" onchange="this.form.submit()">
+        <option value="due_date" {% if request.GET.sort == 'due_date' %}selected{% endif %}>Data de Vencimento (Crescente)</option>
+        <option value="-due_date" {% if request.GET.sort == '-due_date' %}selected{% endif %}>Data de Vencimento (Decrescente)</option>
+        <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Título (A-Z)</option>
+        <option value="-title" {% if request.GET.sort == '-title' %}selected{% endif %}>Título (Z-A)</option>
+    </select>
+</form>
+
+<!-- Lista de Tarefas -->
 <ul>
     {% for task in tasks %}
         <div>
@@ -7,7 +35,7 @@
             <p>{{ task.description }}</p>
             <p>Data de Vencimento: {{ task.due_date }}</p>
             
-            {% if task.due_date|date:"Y-m-d" < now|date:"Y-m-d" %}
+            {% if task.due_date < now %}
                 <p class="alert alert-warning">Tarefa Atrasada!</p>
             {% endif %}
             
@@ -19,3 +47,19 @@
 </ul>
 
 <a href="{% url 'create_task' %}">Criar nova tarefa</a>
+<!-- Controles de paginação -->
+<div class="pagination">
+    <ul class="pagination justify-content-center">
+        {% if tasks.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ tasks.previous_page_number }}">Anterior</a></li>
+        {% endif %}
+
+        <li class="page-item disabled"><a class="page-link">Página {{ tasks.number }} de {{ tasks.paginator.num_pages }}</a></li>
+
+        {% if tasks.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ tasks.next_page_number }}">Próxima</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ tasks.paginator.num_pages }}">Última</a></li>
+        {% endif %}
+    </ul>
+</div>

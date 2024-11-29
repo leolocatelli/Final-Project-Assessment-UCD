@@ -35,3 +35,4 @@ class Task(models.Model):
     def save(self, *args, **kwargs):
         self.clean()  # Executa as validações
         super().save(*args, **kwargs)  # Chama o método save original
+

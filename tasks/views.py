@@ -4,12 +4,43 @@ from .forms import TaskForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def task_list(request):
     tasks = Task.objects.filter(user=request.user)
-    now = timezone.now()  # Hora atual
+
+    # Filtros e ordenação (mantendo sua lógica anterior)
+    status = request.GET.get('status')
+    if status == 'completed':
+        tasks = tasks.filter(completed=True)
+    elif status == 'pending':
+        tasks = tasks.filter(completed=False)
+
+    delay = request.GET.get('delay')
+    if delay == 'delayed':
+        tasks = tasks.filter(due_date__lt=timezone.now())
+
+    sort = request.GET.get('sort', 'due_date')
+    if sort in ['due_date', '-due_date', 'title', '-title']:
+        tasks = tasks.order_by(sort)
+
+    # Paginação
+    paginator = Paginator(tasks, 5)  # Exibe 5 tarefas por página
+    page = request.GET.get('page')  # Obtém o número da página atual
+    try:
+        tasks = paginator.page(page)
+    except PageNotAnInteger:
+        tasks = paginator.page(1)
+    except EmptyPage:
+        tasks = paginator.page(paginator.num_pages)
+
+    now = timezone.now()
     return render(request, 'tasks/task_list.html', {'tasks': tasks, 'now': now})
+
+
+
+
 
 @login_required
 def create_task(request):
