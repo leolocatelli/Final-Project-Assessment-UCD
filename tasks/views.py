@@ -26,7 +26,7 @@ def task_list(request):
         tasks = tasks.order_by(sort)
 
     # Paginação
-    paginator = Paginator(tasks, 5)  # Exibe 5 tarefas por página
+    paginator = Paginator(tasks, 6)  # Exibe 5 tarefas por página
     page = request.GET.get('page')  # Obtém o número da página atual
     try:
         tasks = paginator.page(page)

@@ -1,13 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Criar Nova Tarefa</h2>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4 text-white">Criar Nova Tarefa</h2>
 
+    <div class="card shadow-lg rounded-lg border-0">
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          
+          <div class="mb-4">
+            <label for="title" class="form-label">Título da Tarefa</label>
+            <input type="text" name="title" id="title" class="form-control form-control-lg border-0 rounded-pill p-3" placeholder="Exemplo: Comprar leite" required>
+          </div>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Salvar</button>
-  </form>
-  <a href="{% url 'task_list' %}">Voltar para a lista</a>
+          <div class="mb-4">
+            <label for="description" class="form-label">Descrição</label>
+            <textarea name="description" id="description" class="form-control form-control-lg border-0 rounded-3 p-3" rows="4" placeholder="Adicione uma descrição detalhada..."></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label for="due_date" class="form-label">Data de Vencimento</label>
+            <input type="date" name="due_date" id="due_date" class="form-control form-control-lg border-0 rounded-pill p-3" required>
+          </div>
+
+          <div class="mb-4 form-check">
+            <input type="checkbox" name="completed" id="completed" class="form-check-input" id="completed">
+            <label for="completed" class="form-check-label">Concluída?</label>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success btn-lg rounded-pill shadow-sm">Salvar Tarefa</button>
+          </div>
+        </form>
+
+        <div class="mt-4 text-center">
+          <a href="{% url 'task_list' %}" class="btn btn-secondary rounded-pill shadow-sm">Voltar para a lista</a>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

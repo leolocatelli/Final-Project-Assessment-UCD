@@ -39,7 +39,3 @@ psql -U taskuser -d task_management
 \q
 
 
-Etapa 1: Setup do Django e PostgreSQL - Concluído.
-Etapa 2: Sistema de Autenticação de Usuários - Concluído.
-Etapa 3: CRUD de Tarefas - Concluído (Listar, Criar, Editar e Deletar tarefas).
-Etapa 4: Integração Frontend com React - Essa etapa é a próxima que devemos iniciar.

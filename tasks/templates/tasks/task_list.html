@@ -1,64 +1,93 @@
-<h1>Lista de Tarefas</h1>
+{% extends 'base.html' %}
 
-<!-- Formulário de Filtros -->
-<form method="get" class="filters">
-    <!-- Filtro por Status -->
-    <label for="status">Status:</label>
-    <select name="status" id="status" onchange="this.form.submit()">
-        <option value="">Todos</option>
-        <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Concluídas</option>
-        <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pendentes</option>
-    </select>
+{% block content %}
+    <h1 class="mb-4 text-center">Lista de Tarefas</h1>
 
-    <!-- Filtro por Atraso -->
-    <label for="delay">Atraso:</label>
-    <select name="delay" id="delay" onchange="this.form.submit()">
-        <option value="">Todos</option>
-        <option value="delayed" {% if request.GET.delay == 'delayed' %}selected{% endif %}>Atrasadas</option>
-    </select>
+    <!-- Formulário de Filtros -->
+    <form method="get" class="filters mb-4">
+        <div class="row">
+            <!-- Filtro por Status -->
+            <div class="col-md-4">
+                <label for="status">Status:</label>
+                <select name="status" id="status" class="form-select" onchange="this.form.submit()">
+                    <option value="">Todos</option>
+                    <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Concluídas</option>
+                    <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pendentes</option>
+                </select>
+            </div>
 
-    <!-- Ordenação -->
-    <label for="sort">Ordenar por:</label>
-    <select name="sort" id="sort" onchange="this.form.submit()">
-        <option value="due_date" {% if request.GET.sort == 'due_date' %}selected{% endif %}>Data de Vencimento (Crescente)</option>
-        <option value="-due_date" {% if request.GET.sort == '-due_date' %}selected{% endif %}>Data de Vencimento (Decrescente)</option>
-        <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Título (A-Z)</option>
-        <option value="-title" {% if request.GET.sort == '-title' %}selected{% endif %}>Título (Z-A)</option>
-    </select>
-</form>
+            <!-- Filtro por Atraso -->
+            <div class="col-md-4">
+                <label for="delay">Atraso:</label>
+                <select name="delay" id="delay" class="form-select" onchange="this.form.submit()">
+                    <option value="">Todos</option>
+                    <option value="delayed" {% if request.GET.delay == 'delayed' %}selected{% endif %}>Atrasadas</option>
+                </select>
+            </div>
 
-<!-- Lista de Tarefas -->
-<ul>
-    {% for task in tasks %}
-        <li>
-            <h3>{{ task.title }}</h3>
-            <p>{{ task.description }}</p>
-            <p>Data de Vencimento: {{ task.due_date }}</p>
-            
-            {% if task.due_date < now %}
-                <p class="alert alert-warning">Tarefa Atrasada!</p>
+            <!-- Ordenação -->
+            <div class="col-md-4">
+                <label for="sort">Ordenar por:</label>
+                <select name="sort" id="sort" class="form-select" onchange="this.form.submit()">
+                    <option value="due_date" {% if request.GET.sort == 'due_date' %}selected{% endif %}>Data de Vencimento (Crescente)</option>
+                    <option value="-due_date" {% if request.GET.sort == '-due_date' %}selected{% endif %}>Data de Vencimento (Decrescente)</option>
+                    <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Título (A-Z)</option>
+                    <option value="-title" {% if request.GET.sort == '-title' %}selected{% endif %}>Título (Z-A)</option>
+                </select>
+            </div>
+        </div>
+    </form>
+
+    <!-- Lista de Tarefas estilo Kanban -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for task in tasks %}
+            <div class="col">
+                <div class="card h-100 task-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ task.title }}</h5>
+                        <p class="card-text">{{ task.description }}</p>
+                        <p class="card-text">Data de Vencimento: {{ task.due_date }}</p>
+
+                        {% if task.due_date < now %}
+                            <p class="alert alert-warning p-2">Tarefa Atrasada!</p>
+                        {% endif %}
+
+                        <p class="card-text">Status: 
+                            {% if task.completed %}
+                                <span class="badge bg-success">Concluída</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Pendente</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a href="{% url 'update_task' task.id %}" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Botão para Criar nova tarefa -->
+    <div class="mt-4 text-center">
+        <a href="{% url 'create_task' %}" class="btn btn-success">Criar nova tarefa</a>
+    </div>
+
+    <!-- Controles de paginação -->
+    <div class="pagination mt-4">
+        <ul class="pagination justify-content-center">
+            {% if tasks.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ tasks.previous_page_number }}">Anterior</a></li>
             {% endif %}
-            
-            <p>Status: {% if task.completed %}Concluída{% else %}Pendente{% endif %}</p>
-        </li>
-    {% endfor %}
-</ul>
 
-<a href="{% url 'create_task' %}">Criar nova tarefa</a>
+            <li class="page-item disabled"><a class="page-link">Página {{ tasks.number }} de {{ tasks.paginator.num_pages }}</a></li>
 
-<!-- Controles de paginação -->
-<div class="pagination">
-    <ul class="pagination justify-content-center">
-        {% if tasks.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ tasks.previous_page_number }}">Anterior</a></li>
-        {% endif %}
-
-        <li class="page-item disabled"><a class="page-link">Página {{ tasks.number }} de {{ tasks.paginator.num_pages }}</a></li>
-
-        {% if tasks.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ tasks.next_page_number }}">Próxima</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ tasks.paginator.num_pages }}">Última</a></li>
-        {% endif %}
-    </ul>
-</div>
+            {% if tasks.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ tasks.next_page_number }}">Próxima</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ tasks.paginator.num_pages }}">Última</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
