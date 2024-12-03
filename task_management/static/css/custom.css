@@ -115,14 +115,22 @@ h2 {
     box-shadow: none;  /* Retira sombra dos campos */
 }
 
+.form-control {
+    background-color: #f2f2f2; /* Cinza claro */
+    border: 1px solid #ced4da; /* Borda sutil */
+    color: #495057; /* Cor do texto */
+    transition: background-color 0.3s ease;
+}
+
 .form-control-lg {
     padding: 15px;
     font-size: 1.1rem;
 }
 
 .form-control:focus {
-    border-color: #6c757d;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    background-color: #e6e6e6; /* Cinza um pouco mais escuro no foco */
+    border-color: #80bdff; /* Realce na borda ao focar */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .form-check-label {

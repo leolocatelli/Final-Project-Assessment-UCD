@@ -1,50 +1,83 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container mt-5">
-    <h2 class="text-center mb-4">Editar Tarefa</h2>
-
-    {% if messages %}
-      <div class="mb-4">
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    <div class="card">
-      <div class="card-body">
-        <form method="POST">
-          {% csrf_token %}
-          
-          <div class="mb-3">
-            <label for="title" class="form-label">Título:</label>
-            <input type="text" name="title" id="title" class="form-control" value="{{ task.title }}" required>
+<div class="container mt-5">
+  <h2 class="text-center mb-4 text-white">Editar Tarefa</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      {% if messages %}
+        <div class="mb-4">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <div class="card shadow-lg rounded-lg border-0">
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-4">
+              <label for="title" class="form-label">Título</label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
+                value="{{ task.title }}"
+                required
+              >
+            </div>
+            <div class="mb-4">
+              <label for="description" class="form-label">Descrição</label>
+              <textarea
+                name="description"
+                id="description"
+                class="form-control form-control-lg border-0 rounded-3 p-3 bg-light"
+                rows="4"
+                required
+              >{{ task.description }}</textarea>
+            </div>
+            <div class="mb-4">
+              <label for="due_date" class="form-label">Data de Vencimento</label>
+              <input
+                type="date"
+                name="due_date"
+                id="due_date"
+                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
+                value="{{ task.due_date|date:'Y-m-d' }}"
+                required
+              >
+            </div>
+            <div class="mb-4 form-check">
+              <input
+                type="checkbox"
+                name="completed"
+                id="completed"
+                class="form-check-input"
+                {% if task.completed %}checked{% endif %}
+              >
+              <label for="completed" class="form-check-label">Concluída?</label>
+            </div>
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg rounded-pill shadow-sm"
+              >Salvar Alterações</button>
+            </div>
+          </form>
+          <div class="mt-4 text-center">
+            <a
+              href="{% url 'delete_task' task.id %}"
+              class="btn btn-danger rounded-pill shadow-sm"
+            >Excluir Tarefa</a>
+            <a
+              href="{% url 'task_list' %}"
+              class="btn btn-secondary rounded-pill shadow-sm "
+            >Voltar para a lista</a>
           </div>
-
-          <div class="mb-3">
-            <label for="description" class="form-label">Descrição:</label>
-            <textarea name="description" id="description" class="form-control" required>{{ task.description }}</textarea>
-          </div>
-
-          <div class="mb-3">
-            <label for="due_date" class="form-label">Data de Vencimento:</label>
-            <input type="date" name="due_date" id="due_date" class="form-control" value="{{ task.due_date|date:'Y-m-d' }}" required>
-          </div>
-
-          <div class="mb-3 form-check">
-            <input type="checkbox" name="completed" id="completed" class="form-check-input" {% if task.completed %}checked{% endif %}>
-            <label for="completed" class="form-check-label">Concluída</label>
-          </div>
-
-          <button type="submit" class="btn btn-primary w-100">Salvar Alterações</button>
-        </form>
-
-        <div class="mt-3 text-center">
-          <a href="{% url 'delete_task' task.id %}" class="btn btn-danger w-100">Excluir Tarefa</a>
-          <a href="{% url 'task_list' %}" class="btn btn-secondary w-100 mt-2">Voltar para a lista</a>
         </div>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
