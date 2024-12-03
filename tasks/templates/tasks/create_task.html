@@ -40,6 +40,18 @@
                 required
               >
             </div>
+            <div class="mb-4">
+              <label for="category" class="form-label">Categoria</label>
+              <select
+                name="category"
+                id="category"
+                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
+              >
+                {% for category in categories %}
+                  <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
             <div class="mb-4 form-check">
               <input
                 type="checkbox"
@@ -47,7 +59,7 @@
                 id="completed"
                 class="form-check-input"
               >
-              <label for="completed" class="form-check-label ">Concluída?</label>
+              <label for="completed" class="form-check-label">Concluída?</label>
             </div>
             <div class="d-grid gap-2">
               <button

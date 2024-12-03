@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Task
+from django.shortcuts import render, redirect, get_object_or_404, redirect
+from .models import Task, Category
 from .forms import TaskForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -37,9 +37,6 @@ def task_list(request):
 
     now = timezone.now()
     return render(request, 'tasks/task_list.html', {'tasks': tasks, 'now': now})
-
-
-
 
 
 @login_required
