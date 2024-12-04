@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="mb-4 text-center">Lista de Tarefas</h1>
+    <h3 class="mb-4 text-center">Lista de Tarefas</h3>
 
     <!-- Formulário de Filtros -->
     <form method="get" class="filters mb-4">
-        <div class="row">
+        <div class="row g-2">
             <!-- Filtro por Status -->
-            <div class="col-md-4">
-                <label for="status">Status:</label>
+            <div class="col-md-3">
+                <label for="status" class="form-label">Status:</label>
                 <select name="status" id="status" class="form-select" onchange="this.form.submit()">
                     <option value="">Todos</option>
                     <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Concluídas</option>
@@ -17,8 +17,8 @@
             </div>
 
             <!-- Filtro por Atraso -->
-            <div class="col-md-4">
-                <label for="delay">Atraso:</label>
+            <div class="col-md-3">
+                <label for="delay" class="form-label">Atraso:</label>
                 <select name="delay" id="delay" class="form-select" onchange="this.form.submit()">
                     <option value="">Todos</option>
                     <option value="delayed" {% if request.GET.delay == 'delayed' %}selected{% endif %}>Atrasadas</option>
@@ -26,13 +26,26 @@
             </div>
 
             <!-- Ordenação -->
-            <div class="col-md-4">
-                <label for="sort">Ordenar por:</label>
+            <div class="col-md-3">
+                <label for="sort" class="form-label">Ordenar por:</label>
                 <select name="sort" id="sort" class="form-select" onchange="this.form.submit()">
                     <option value="due_date" {% if request.GET.sort == 'due_date' %}selected{% endif %}>Data de Vencimento (Crescente)</option>
                     <option value="-due_date" {% if request.GET.sort == '-due_date' %}selected{% endif %}>Data de Vencimento (Decrescente)</option>
                     <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Título (A-Z)</option>
                     <option value="-title" {% if request.GET.sort == '-title' %}selected{% endif %}>Título (Z-A)</option>
+                </select>
+            </div>
+
+            <!-- Filtro por Categoria -->
+            <div class="col-md-3">
+                <label for="category" class="form-label">Categoria:</label>
+                <select name="category" id="category" class="form-select" onchange="this.form.submit()">
+                    <option value="">Todas</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -41,31 +54,44 @@
     <!-- Lista de Tarefas estilo Kanban -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for task in tasks %}
-            <div class="col">
-                <div class="card h-100 task-card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ task.title }}</h5>
-                        <p class="card-text">{{ task.description }}</p>
-                        <p class="card-text">Data de Vencimento: {{ task.due_date }}</p>
-
-                        {% if task.due_date < now %}
-                            <p class="alert alert-warning p-2">Tarefa Atrasada!</p>
+        <div class="col">
+            <div class="card h-100 task-card" style="background-color: {{ task.color }}; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);">
+                <div class="card-body">
+                    <!-- Categoria com Emoji e Cor -->
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="badge badge-category badge-category-{{ task.category.name|default:"uncategorized"|lower|slugify }}">
+                            <span class="me-2">{{ task.emoji }}</span>
+                            <strong>{{ task.category.name|default:"Uncategorized" }}</strong>
+                        </div>
+                    </div>
+                    
+        
+                    <!-- Informações da Tarefa -->
+                    <h5 class="card-title">{{ task.title }}</h5>
+                    <p class="card-text">{{ task.description }}</p>
+                    <p class="card-text">Data de Vencimento: {{ task.due_date }}</p>
+                    {% if task.due_date < now %}
+                        <p class="alert alert-warning p-2">Tarefa Atrasada!</p>
+                    {% endif %}
+                    <p class="card-text">Status: 
+                        {% if task.completed %}
+                            <span class="badge bg-success">Concluída</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Pendente</span>
                         {% endif %}
-
-                        <p class="card-text">Status: 
-                            {% if task.completed %}
-                                <span class="badge bg-success">Concluída</span>
-                            {% else %}
-                                <span class="badge bg-secondary">Pendente</span>
-                            {% endif %}
-                        </p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <a href="{% url 'update_task' task.id %}" class="btn btn-primary btn-sm">Editar</a>
-                        <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Excluir</a>
-                    </div>
+                    </p>
+                </div>
+        
+                <!-- Ações -->
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="{% url 'update_task' task.id %}" class="btn btn-primary btn-sm">Editar</a>
+                    <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Excluir</a>
                 </div>
             </div>
+        </div>
+        
+        
+        
         {% endfor %}
     </div>
 
