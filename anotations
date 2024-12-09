@@ -2,7 +2,7 @@ source venv/bin/activate
 python3 manage.py runserver
 pip3 install django-webpack-loader
 
-
+python3 manage.py makemigrations accounts
 
 --postgress
 psql -U postgres
