@@ -1,18 +1,41 @@
-/* Fundo geral */
-body {
-    background-color: #f5f5f5; /* Fundo claro */
-    color: #000; /* Texto preto */
+/* Tema Claro */
+:root {
+    --background-color: #f5f5f5;
+    --text-color: #000000;
+    --card-background-color: #ffffff;
+    --card-border-color: #e0e0e0;
+    --button-primary-color: #36c5f0;
+    --button-primary-hover: #2a94d9;
+    --button-danger-color: #e01e5a;
+    --button-danger-hover: #b01746;
 }
 
+/* Tema Escuro */
+.dark-theme {
+    --background-color: #1e1e1e;
+    --text-color: #f5f5f5;
+    --card-background-color: #2c2c2c;
+    --card-border-color: #3a3a3a;
+    --button-primary-color: #4a90e2;
+    --button-primary-hover: #357ab8;
+    --button-danger-color: #c43d4b;
+    --button-danger-hover: #a32c38;
+}
+
+/* Aplicação das variáveis */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
 /* Estilo dos cartões */
 .task-card {
-    background-color: #ffffff; /* Fundo branco dos cards */
-    border: 1px solid #e0e0e0; /* Borda sutil */
+    background-color: var(--card-background-color);
+    border: 1px solid var(--card-border-color);
+    color: var(--text-color);
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 15px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.19);
-    color: #333; /* Texto escuro */
     height: 250px; /* Altura fixa */
     width: 100%; /* Preenche a largura disponível */
     display: flex;
@@ -44,7 +67,7 @@ h2 {
 }
 
 .btn-primary {
-    background-color: #36c5f0; /* Azul Slack */
+    background-color: var(--button-primary-color);
     border: none;
     color: #fff;
     padding: 8px 16px;
@@ -54,12 +77,12 @@ h2 {
 }
 
 .btn-primary:hover {
-    background-color: #2a94d9; /* Azul mais escuro */
+    background-color: var(--button-primary-hover);
 }
 
 
 .btn-danger {
-    background-color: #e01e5a; /* Vermelho Slack */
+    background-color: var(--button-danger-color);
     border: none;
     color: #fff;
     padding: 8px 16px;
@@ -69,7 +92,7 @@ h2 {
 }
 
 .btn-danger:hover {
-    background-color: #b01746; /* Vermelho mais escuro */
+    background-color: var(--button-danger-hover);
 }
 
 .btn-success {
