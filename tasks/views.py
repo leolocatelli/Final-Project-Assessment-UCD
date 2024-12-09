@@ -8,41 +8,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 
 
-CATEGORY_EMOJIS_COLORS = {
-    "Uncategorized": {"emoji": "❓", "color": "#000000"},
-    "Urgent": {"emoji": "⚠️", "color": "#ff0000"},
-    "Hobbies": {"emoji": "🎨", "color": "#ff9800"},
-    "Family": {"emoji": "👨‍👩‍👧‍👦", "color": "#4a154b"},
-    "Travel": {"emoji": "✈️", "color": "#36c5f0"},
-    "Education": {"emoji": "📘", "color": "#ecb22e"},
-    "Shopping": {"emoji": "🛒", "color": "#8bc34a"},
-    "Finance": {"emoji": "💰", "color": "#2e7d32"},
-    "Health": {"emoji": "❤️", "color": "#e01e5a"},
-    "Personal": {"emoji": "🏡", "color": "#6d4c41"},
-    "Work": {"emoji": "💼", "color": "#2eb67d"},
-}
 
-# Lista de tarefas
 # Lista de tarefas
 @login_required
 def task_list(request):
     tasks = Task.objects.filter(user=request.user).select_related('category')  # Otimiza carregamento
     categories = Category.objects.annotate(task_count=Count('task'))  # Adiciona contagem de tarefas por categoria
-
-    # Adicionar emojis e cores às tarefas
-    for task in tasks:
-        if task.category:  # Verifica se a tarefa tem uma categoria
-            category_name = task.category.name
-        else:
-            category_name = "Uncategorized"
-
-        # Garante que emoji e cor sempre sejam atribuídos
-        category_name = task.category.name if task.category else "Uncategorized"
-        task.emoji = CATEGORY_EMOJIS_COLORS.get(category_name, {}).get("emoji", "❓")
-        task.color = CATEGORY_EMOJIS_COLORS.get(category_name, {}).get("color", "#000000")
-
-        # Debug no terminal
-        print(f"Tarefa: {task.title}, Categoria: {category_name}, Emoji: {task.emoji}, Cor: {task.color}")
 
     # Filtros e ordenação (mantém sua lógica anterior)
     status = request.GET.get('status')
