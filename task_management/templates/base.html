@@ -35,15 +35,20 @@
                         <a class="nav-link" href="{% url 'task_list' %}">Tasks</a>
                     </li>
                     <!-- Link para Criar Tarefa -->
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link" href="{% url 'create_task' %}">Create Task</a>
+                    </li> {% endcomment %}
+                    <!-- Link para Perfil -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_profile' %}">Profile</a>
                     </li>
                     <!-- Link para Logout -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
+                    <!-- Botão de alternar tema -->
                     <li class="nav-item d-flex align-items-center m-2">
-                        <div class=" form-switch">
+                        <div class="form-switch">
                             <input 
                                 class="form-check-input" 
                                 type="checkbox" 
@@ -52,10 +57,8 @@
                             <label class="" for="theme-switch"></label>
                         </div>
                     </li>
-                    
                 </ul>
             </div>
-            
         </div>
     </nav>
 

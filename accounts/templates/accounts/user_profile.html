@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header">
+            <h4 class="mb-0">Profile</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <!-- Foto de perfil -->
+                    <img 
+                        src="{{ user.get_profile_picture_url }}" 
+                        alt="Profile Picture" 
+                        class="img-thumbnail mb-3" 
+                        style="width: 150px; height: 150px; object-fit: cover;"
+                    />
+                </div>
+                <div class="col-md-8">
+                    <!-- Informações do usuário -->
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-end">
+                <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos adicionais para tema escuro -->
+<style>
+    .card-header {
+        background-color: var(--bs-primary) !important;
+        color: var(--bs-light) !important;
+    }
+
+    body.dark-theme .card-header {
+        background-color: #343a40 !important; /* Fundo para tema escuro */
+        color: #ffffff !important; /* Texto claro para tema escuro */
+    }
+</style>
+{% endblock %}

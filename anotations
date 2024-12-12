@@ -6,6 +6,8 @@ python3 manage.py makemigrations accounts
 
 --postgress
 psql -U postgres
+\c task_management
+
 
 
 python3 manage.py makemigrations
@@ -15,9 +17,14 @@ python3 manage.py migrate
 superuser
 leonardolocatelli
 leolocatelli30@gmail.com
-Admin1234
+Norte2024!
+
 leolocatelli
-Norte2023!
+Norte2024@
+
+Admin
+admin@example.comm
+Admin_123!
 
 
 GITHUB

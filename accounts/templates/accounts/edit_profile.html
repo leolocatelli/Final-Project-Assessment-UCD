@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Editar Perfil</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label"><strong>Username</strong></label>
+                    {{ form.username }}
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label"><strong>Email</strong></label>
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    <label for="first_name" class="form-label"><strong>First Name</strong></label>
+                    {{ form.first_name }}
+                </div>
+                <div class="mb-3">
+                    <label for="last_name" class="form-label"><strong>Last Name</strong></label>
+                    {{ form.last_name }}
+                </div>
+                <div class="mb-3">
+                    <label for="profile_picture" class="form-label"><strong>Profile Image</strong></label>
+                    {{ form.profile_picture }}
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label"><strong>Password</strong></label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="New Password (optional)" />
+                </div>
+                <hr>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success me-2">Salvar Alterações</button>
+                    <a href="{% url 'user_profile' %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
