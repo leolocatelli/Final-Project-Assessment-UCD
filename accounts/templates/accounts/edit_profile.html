@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
 <div class="container mt-5">
-    <div class="card shadow">
+    <div class="card shadow card-theme">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Editar Perfil</h4>
+            <h4>Edit Profile</h4>
         </div>
         <div class="card-body">
+            <!-- Formulário de edição de perfil -->
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -29,14 +29,21 @@
                     <label for="profile_picture" class="form-label"><strong>Profile Image</strong></label>
                     {{ form.profile_picture }}
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label"><strong>Password</strong></label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="New Password (optional)" />
-                </div>
                 <hr>
                 <div class="text-end">
-                    <button type="submit" class="btn btn-success me-2">Salvar Alterações</button>
-                    <a href="{% url 'user_profile' %}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <a href="{% url 'user_profile' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+
+            <!-- Formulário de alteração de senha -->
+            <hr class="my-4">
+            <h5>Change Password</h5>
+            <form method="post" action="{% url 'password_change' %}">
+                {% csrf_token %}
+                {{ password_form.as_p }}
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-warning">Update Password</button>
                 </div>
             </form>
         </div>
