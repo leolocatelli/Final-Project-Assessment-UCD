@@ -20,8 +20,7 @@ def task_list(request):
     if status == 'completed':
         tasks = tasks.filter(completed=True)
     elif status == 'pending':
-        tasks = tasks.filter(completed=False)
-
+        tasks = tasks.filter(completed=False) 
     delay = request.GET.get('delay')
     if delay == 'delayed':
         tasks = tasks.filter(due_date__lt=timezone.now())
