@@ -39,6 +39,21 @@ body .card-theme {
     color: #000;
     border: 1px solid #ddd;
 }
+
+body.dark-theme .card {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+body.dark-theme .card-header {
+    background-color: #444 !important;
+    color: #ddd !important;
+}
+body.dark-theme .btn {
+    border-color: #666 !important;
+}
+
+
+
 /* Estilo dos cartões */
 .task-card {
     background-color: var(--card-background-color);

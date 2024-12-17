@@ -3,14 +3,14 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header">
-            <h4 class="mb-0">Profile</h4>
+    <div class="card shadow card-theme">
+        <div class="card-header text-white">
+            <h4 class="mb-0">User Profile</h4>
         </div>
         <div class="card-body">
             <div class="row">
+                <!-- Coluna da imagem de perfil -->
                 <div class="col-md-4 text-center">
-                    <!-- Foto de perfil -->
                     <img 
                         src="{{ user.get_profile_picture_url }}" 
                         alt="Profile Picture" 
@@ -18,15 +18,28 @@
                         style="width: 150px; height: 150px; object-fit: cover;"
                     />
                 </div>
+                <!-- Coluna das informações -->
                 <div class="col-md-8">
-                    <!-- Informações do usuário -->
-                    <p><strong>Username:</strong> {{ user.username }}</p>
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-                    <p><strong>First Name:</strong> {{ user.first_name }}</p>
-                    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Username</strong></label>
+                        <p>{{ user.username }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Email</strong></label>
+                        <p>{{ user.email }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>First Name</strong></label>
+                        <p>{{ user.first_name }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Last Name</strong></label>
+                        <p>{{ user.last_name }}</p>
+                    </div>
                 </div>
             </div>
             <hr>
+            <!-- Botão de Editar Perfil -->
             <div class="text-end">
                 <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary">Edit Profile</a>
             </div>
@@ -34,7 +47,7 @@
     </div>
 </div>
 
-<!-- Estilos adicionais para tema escuro -->
+<!-- Estilos para tema escuro -->
 <style>
     .card-header {
         background-color: var(--bs-primary) !important;
@@ -42,8 +55,24 @@
     }
 
     body.dark-theme .card-header {
-        background-color: #343a40 !important; /* Fundo para tema escuro */
-        color: #ffffff !important; /* Texto claro para tema escuro */
+        background-color: #343a40 !important; /* Fundo escuro */
+        color: #ffffff !important; /* Texto branco */
+    }
+
+    body.dark-theme .card {
+        background-color: #2b2b2b !important;
+        color: #ffffff !important;
+        border: 1px solid #444 !important;
+    }
+
+    body.dark-theme .btn-outline-primary {
+        border-color: #6c757d;
+        color: #6c757d;
+    }
+
+    body.dark-theme .btn-outline-primary:hover {
+        background-color: #6c757d;
+        color: #ffffff;
     }
 </style>
 {% endblock %}

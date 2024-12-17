@@ -3,6 +3,14 @@
 {% block title %}Home - Task Management{% endblock %}
 
 {% block content %}
-<h1 class="text-center">Bem-vindo ao Task Management App!</h1>
-<p class="text-muted text-center">Gerencie suas tarefas de forma eficiente.</p>
+<div class="container mt-5 text-center">
+    <h1>Welcome to Task Management App!</h1>
+    <p class="text-muted">Manage your tasks efficiently and effectively.</p>
+
+    <!-- Links para Login e Registro -->
+    <div class="mt-4">
+        <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-success">Register</a>
+    </div>
+</div>
 {% endblock %}

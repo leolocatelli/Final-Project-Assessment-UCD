@@ -13,14 +13,12 @@
     <!-- Optional: seus próprios estilos -->
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
-
-
 </head>
 <body>
     <!-- Barra de Navegação -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Task App</a>
+            <a class="navbar-brand" href="{% url 'home' %}">Task App</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,13 +33,29 @@
                         <a class="nav-link" href="{% url 'task_list' %}">Tasks</a>
                     </li>
                     
+                    {% if user.is_authenticated %}
+                    <!-- Link para Profile e Logout quando o usuário está logado -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'user_profile' %}">Profile</a>
                     </li>
-                    <!-- Link para Logout -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link" >
+                                Logout
+                            </button>
+                        </form>
                     </li>
+                    {% else %}
+                    <!-- Link para Login e Register quando o usuário não está logado -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                    {% endif %}
+
                     <!-- Botão de alternar tema -->
                     <li class="nav-item d-flex align-items-center m-2">
                         <div class="form-switch">
@@ -100,20 +114,4 @@
 
         console.log("Tema inicial:", savedTheme); // Debug no console
     });
-
-
-// Aplica o tema salvo no localStorage ao carregar a página
-document.addEventListener("DOMContentLoaded", function () {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    const themeSwitch = document.getElementById("theme-switch");
-
-    if (savedTheme === "dark") {
-        document.documentElement.classList.add("dark-theme");
-        themeSwitch.checked = true; // Atualiza o estado do switch
-    }
-});
-
-
-
 </script>
-

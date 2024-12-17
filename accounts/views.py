@@ -10,8 +10,8 @@ def register(request):
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Sua conta foi criada com sucesso! Faça login para continuar.')
-            return redirect('login')
+            messages.success(request, 'Registration successful! Please log in.')
+            return redirect('login')  # Redireciona para a página de login
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
