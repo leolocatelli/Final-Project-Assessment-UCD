@@ -2,50 +2,50 @@
 
 {% block content %}
 <div class="container mt-5">
-  <h3 class="text-center mb-4">Criar Nova Tarefa</h3>
+  <h3 class="text-center mb-4">Create New Task</h3>
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card shadow-lg rounded-lg border-0">
+      <div class="card shadow-lg rounded-lg border-0 card-theme">
         <div class="card-body">
           <form method="post">
             {% csrf_token %}
             <div class="mb-4">
-              <label for="title" class="form-label">Título da Tarefa</label>
+              <label for="title" class="form-label">Task Title</label>
               <input
                 type="text"
                 name="title"
                 id="title"
-                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
-                placeholder="Exemplo: Comprar leite"
+                class="form-control form-control-lg rounded-pill p-3 input-theme"
+                placeholder="Example: Buy milk"
                 required
               >
             </div>
             <div class="mb-4">
-              <label for="description" class="form-label">Descrição</label>
+              <label for="description" class="form-label">Description</label>
               <textarea
                 name="description"
                 id="description"
-                class="form-control form-control-lg border-0 rounded-3 p-3 bg-light"
+                class="form-control form-control-lg rounded-3 p-3 input-theme"
                 rows="4"
-                placeholder="Adicione uma descrição detalhada..."
+                placeholder="Add a detailed description..."
               ></textarea>
             </div>
             <div class="mb-4">
-              <label for="due_date" class="form-label">Data de Vencimento</label>
+              <label for="due_date" class="form-label">Due Date</label>
               <input
                 type="date"
                 name="due_date"
                 id="due_date"
-                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
+                class="form-control form-control-lg rounded-pill p-3 input-theme"
                 required
               >
             </div>
             <div class="mb-4">
-              <label for="category" class="form-label">Categoria</label>
+              <label for="category" class="form-label">Category</label>
               <select
                 name="category"
                 id="category"
-                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
+                class="form-control form-control-lg rounded-pill p-3 input-theme"
               >
                 {% for category in categories %}
                   <option value="{{ category.id }}">{{ category.name }}</option>
@@ -59,20 +59,20 @@
                 id="completed"
                 class="form-check-input"
               >
-              <label for="completed" class="form-check-label">Concluída?</label>
+              <label for="completed" class="form-check-label">Completed?</label>
             </div>
             <div class="d-grid gap-2">
               <button
                 type="submit"
                 class="btn btn-success btn-lg rounded-pill shadow-sm"
-              >Salvar Tarefa</button>
+              >Save Task</button>
             </div>
           </form>
           <div class="mt-4 text-center">
             <a
               href="{% url 'task_list' %}"
               class="btn btn-secondary rounded-pill shadow-sm"
-            >Voltar para a lista</a>
+            >Back to Task List</a>
           </div>
         </div>
       </div>
@@ -80,3 +80,5 @@
   </div>
 </div>
 {% endblock %}
+
+

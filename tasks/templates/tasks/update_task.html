@@ -2,58 +2,59 @@
 
 {% block content %}
 <div class="container mt-5">
-  <h3 class="text-center mb-4">Editar Tarefa</h3>
+  <h3 class="text-center mb-4">Edit Task</h3>
   <div class="row justify-content-center">
     <div class="col-md-6">
       {% if messages %}
         <div class="mb-4">
           {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            <div class="alert alert-{{ message.tags }}">{{ message }}
+        </div>
           {% endfor %}
         </div>
       {% endif %}
-      <div class="card shadow-lg rounded-lg border-0">
+      <div class="card shadow-lg rounded-lg border-0 card-theme">
         <div class="card-body">
           <form method="POST">
             {% csrf_token %}
             <div class="mb-4">
-              <label for="title" class="form-label">Título</label>
+              <label for="title" class="form-label">Title</label>
               <input
                 type="text"
                 name="title"
                 id="title"
-                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
+                class="form-control form-control-lg rounded-pill p-3 input-theme"
                 value="{{ task.title }}"
                 required
               >
             </div>
             <div class="mb-4">
-              <label for="description" class="form-label">Descrição</label>
+              <label for="description" class="form-label">Description</label>
               <textarea
                 name="description"
                 id="description"
-                class="form-control form-control-lg border-0 rounded-3 p-3 bg-light"
+                class="form-control form-control-lg rounded-3 p-3 input-theme"
                 rows="4"
                 required
               >{{ task.description }}</textarea>
             </div>
             <div class="mb-4">
-              <label for="due_date" class="form-label">Data de Vencimento</label>
+              <label for="due_date" class="form-label">Due Date</label>
               <input
                 type="date"
                 name="due_date"
                 id="due_date"
-                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
+                class="form-control form-control-lg rounded-pill p-3 input-theme"
                 value="{{ task.due_date|date:'Y-m-d' }}"
                 required
               >
             </div>
             <div class="mb-4">
-              <label for="category" class="form-label">Categoria</label>
+              <label for="category" class="form-label">Category</label>
               <select
                 name="category"
                 id="category"
-                class="form-control form-control-lg border-0 rounded-pill p-3 bg-light"
+                class="form-control form-control-lg rounded-pill p-3 input-theme"
               >
                 {% for category in categories %}
                   <option value="{{ category.id }}" {% if task.category.id == category.id %}selected{% endif %}>
@@ -70,24 +71,24 @@
                 class="form-check-input"
                 {% if task.completed %}checked{% endif %}
               >
-              <label for="completed" class="form-check-label">Concluída?</label>
+              <label for="completed" class="form-check-label">Completed?</label>
             </div>
             <div class="d-grid gap-2">
               <button
                 type="submit"
                 class="btn btn-primary btn-lg rounded-pill shadow-sm"
-              >Salvar Alterações</button>
+              >Save Changes</button>
             </div>
           </form>
           <div class="mt-4 text-center">
             <a
               href="{% url 'delete_task' task.id %}"
               class="btn btn-danger rounded-pill shadow-sm"
-            >Excluir Tarefa</a>
+            >Delete Task</a>
             <a
               href="{% url 'task_list' %}"
-              class="btn btn-secondary rounded-pill shadow-sm "
-            >Voltar para a lista</a>
+              class="btn btn-secondary rounded-pill shadow-sm"
+            >Back to Task List</a>
           </div>
         </div>
       </div>
@@ -95,3 +96,4 @@
   </div>
 </div>
 {% endblock %}
+
