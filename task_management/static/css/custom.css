@@ -331,6 +331,10 @@ h2 {
     box-shadow: none;
 }
 
+.card-header {
+    background-color: var(--bs-primary) !important;
+    color: var(--bs-light) !important;
+}
 
 
 
