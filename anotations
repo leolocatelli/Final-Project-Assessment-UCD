@@ -42,7 +42,7 @@ git checkout
 
 
 shell
-python manage.py shell
+python3 manage.py shell
 exit()
 
 

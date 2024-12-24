@@ -155,3 +155,31 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+import os
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'leodublin33@gmail.com'  # Seu e-mail
+EMAIL_HOST_PASSWORD = 'qdki mvvl nrqh lecm'  # Senha de aplicativo
+DEFAULT_FROM_EMAIL = 'Task Management App <leodublin33@gmail.com>'
+SERVER_EMAIL = 'leodublin33@gmail.com'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
