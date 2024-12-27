@@ -279,8 +279,8 @@ h2 {
 .badge-category-family { background-color: #4a154b; } /* Roxo escuro */
 .badge-category-travel { background-color: #36c5f0; } /* Azul */
 .badge-category-education { background-color: #ecb22e; } /* Amarelo */
-.badge-category-shopping { background-color: #8bc34a; } /* Verde claro */
-.badge-category-finance { background-color: #2e7d32; } /* Verde escuro */
+.badge-category-shopping { background-color: #6a7d55; } /* Verde claro */
+.badge-category-finance { background-color: #1d49a1; } /* Verde escuro */
 .badge-category-health { background-color: #e01e5a; } /* Vermelho escuro */
 .badge-category-personal { background-color: #6d4c41; } /* Marrom */
 .badge-category-work { background-color: #2eb67d; } /* Verde água */
@@ -337,6 +337,75 @@ h2 {
 }
 
 
+
+/* Estilo para o vídeo de fundo */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Para que o vídeo fique no fundo */
+    opacity: 50%;
+    background-color: #000000;
+}
+
+/* Estilo para a grade inclinada */
+.overlay-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.1) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.1) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 5px 5px;
+    /* z-index: 0; Para ficar acima do vídeo, mas abaixo do conteúdo */
+}
+
+/* Centralização do conteúdo */
+.home-content {
+    position: relative;
+    z-index: 1; /* Para o conteúdo ficar acima do vídeo e da grade */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa a altura total da tela */
+    color: #fff; /* Texto branco */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8); /* Adiciona contraste */
+}
+
+.home-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.home-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.home-content .btn {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+}
+
+nav.navbar {
+    position: relative;
+    z-index: 2; /* Maior prioridade que a grade inclinada */
+}
 
 @media (max-width: 768px) {
     .card-body {

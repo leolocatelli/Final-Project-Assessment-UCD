@@ -3,11 +3,17 @@
 {% block title %}Home - Task Management{% endblock %}
 
 {% block content %}
-<div class="container mt-5 text-center">
+<video class="video-background" autoplay muted loop>
+    <source src="/media/footages/background-video-home-page.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<!-- Grade inclinada sobre o vídeo -->
+<div class="overlay-pattern"></div>
+
+<!-- Conteúdo centralizado -->
+<div class="home-content">
     <h1>Welcome to Task Management App!</h1>
     <p>Manage your tasks efficiently and effectively.</p>
-
-    <!-- Links para Login e Registro -->
     <div class="mt-4">
         <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
         <a href="{% url 'register' %}" class="btn btn-success">Register</a>
