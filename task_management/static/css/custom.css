@@ -183,7 +183,8 @@ h2 {
 
 .form-control, .form-check-input {
     border-radius: 10px;
-    box-shadow: none; /* Retira sombra dos campos */
+    box-shadow: none; 
+    
 }
 
 .form-control {
@@ -191,6 +192,7 @@ h2 {
     border: 1px solid #ced4da; /* Borda sutil */
     color: #495057; /* Cor do texto */
     transition: background-color 0.3s ease;
+    
 }
 
 .form-control-lg {
@@ -348,7 +350,7 @@ h2 {
     object-fit: cover;
     z-index: -1; /* Para que o vídeo fique no fundo */
     opacity: 50%;
-    background-color: #000000;
+    filter: blur(5px)
 }
 
 /* Estilo para a grade inclinada */
@@ -380,7 +382,7 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Ocupa a altura total da tela */
+    height: 80vh;
     color: #fff; /* Texto branco */
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8); /* Adiciona contraste */
 }
@@ -389,6 +391,7 @@ h2 {
     font-size: 3rem;
     margin-bottom: 1rem;
     text-align: center;
+    font-weight: bolder;
 }
 
 .home-content p {
@@ -406,6 +409,9 @@ nav.navbar {
     position: relative;
     z-index: 2; /* Maior prioridade que a grade inclinada */
 }
+
+
+
 
 @media (max-width: 768px) {
     .card-body {

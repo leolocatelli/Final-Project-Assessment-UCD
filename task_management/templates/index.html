@@ -3,16 +3,23 @@
 {% block title %}Home - Task Management{% endblock %}
 
 {% block content %}
+<style>
+    body {
+        background-color: #000 !important; /* Black background */
+        color: #fff; /* White text for contrast */
+    }
+</style>
+
 <video class="video-background" autoplay muted loop>
     <source src="/media/footages/background-video-home-page.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
-<!-- Grade inclinada sobre o vídeo -->
+<!-- Diagonal grid overlay on the video -->
 <div class="overlay-pattern"></div>
 
-<!-- Conteúdo centralizado -->
+<!-- Centered content -->
 <div class="home-content">
-    <h1>Welcome to Task Management App!</h1>
+    <h1>Welcome to <br> Task Management App!</h1>
     <p>Manage your tasks efficiently and effectively.</p>
     <div class="mt-4">
         <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>

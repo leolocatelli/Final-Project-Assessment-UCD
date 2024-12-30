@@ -1,38 +1,39 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
-<div class="container mt-5">
-    <div class="card shadow card-theme">
-        <div class="card-header bg-primary text-white">
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow card-theme" style="width: 100%; max-width: 800px; padding: 20px;">
+        <div class="card-header bg-primary text-white text-center">
             <h4>Edit Profile</h4>
         </div>
         <div class="card-body">
-            <!-- Formulário de edição de perfil -->
-            <form method="post" enctype="multipart/form-data">
+            <!-- Edit Profile Form -->
+            <form method="post" enctype="multipart/form-data" class="mb-4 d-flex flex-column">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label for="username" class="form-label"><strong>Username</strong></label>
-                    {{ form.username }}
+                <div class="mb-4">
+                    <label for="username" class="form-label w-100"><strong>Username</strong></label>
+                    {{ form.username|add_class:"form-control w-100" }}
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label"><strong>Email</strong></label>
-                    {{ form.email }}
+                <div class="mb-4">
+                    <label for="email" class="form-label w-100"><strong>Email</strong></label>
+                    {{ form.email|add_class:"form-control w-100" }}
                 </div>
-                <div class="mb-3">
-                    <label for="first_name" class="form-label"><strong>First Name</strong></label>
-                    {{ form.first_name }}
+                <div class="mb-4">
+                    <label for="first_name" class="form-label w-100"><strong>First Name</strong></label>
+                    {{ form.first_name|add_class:"form-control w-100" }}
                 </div>
-                <div class="mb-3">
-                    <label for="last_name" class="form-label"><strong>Last Name</strong></label>
-                    {{ form.last_name }}
+                <div class="mb-4">
+                    <label for="last_name" class="form-label w-100"><strong>Last Name</strong></label>
+                    {{ form.last_name|add_class:"form-control w-100" }}
                 </div>
-                <div class="mb-3">
-                    <label for="profile_picture" class="form-label"><strong>Profile Image</strong></label>
-                    {{ form.profile_picture }}
+                <div class="mb-4">
+                    <label for="profile_picture" class="form-label w-100"><strong>Profile Image</strong></label>
+                    {{ form.profile_picture|add_class:"form-control w-100" }}
                 </div>
                 <hr>
-                <div class="text-end">
-                    <button type="submit" class="btn btn-success">Save Changes</button>
-                    <a href="{% url 'user_profile' %}" class="btn btn-secondary">Cancel</a>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success w-100 py-2">Save Changes</button>
+                    <a href="{% url 'user_profile' %}" class="btn btn-secondary w-100 py-2 mt-2">Cancel</a>
                 </div>
             </form>
 
@@ -45,6 +46,7 @@
                 <div class="text-end mt-3">
                     <button type="submit" class="btn btn-warning">Update Password</button>
                 </div>
+            </form>
             </form>
         </div>
     </div>

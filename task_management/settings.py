@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'tasks',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
@@ -152,7 +153,7 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console'],
-        'level': 'DEBUG',
+        'level': 'WARNING',
     },
 }
 
