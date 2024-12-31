@@ -8,45 +8,63 @@
         </div>
         <div class="card-body">
             <!-- Edit Profile Form -->
-            <form method="post" enctype="multipart/form-data" class="mb-4 d-flex flex-column">
+            <form method="post" enctype="multipart/form-data" class="mb-4">
                 {% csrf_token %}
                 <div class="mb-4">
-                    <label for="username" class="form-label w-100"><strong>Username</strong></label>
-                    {{ form.username|add_class:"form-control w-100" }}
+                    <label for="username" class="form-label">Username</label>
+                    {{ form.username|add_class:"form-control input-theme" }}
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="form-label w-100"><strong>Email</strong></label>
-                    {{ form.email|add_class:"form-control w-100" }}
+                    <label for="email" class="form-label">Email</label>
+                    {{ form.email|add_class:"form-control input-theme" }}
                 </div>
                 <div class="mb-4">
-                    <label for="first_name" class="form-label w-100"><strong>First Name</strong></label>
-                    {{ form.first_name|add_class:"form-control w-100" }}
+                    <label for="first_name" class="form-label">First Name</label>
+                    {{ form.first_name|add_class:"form-control input-theme" }}
                 </div>
                 <div class="mb-4">
-                    <label for="last_name" class="form-label w-100"><strong>Last Name</strong></label>
-                    {{ form.last_name|add_class:"form-control w-100" }}
+                    <label for="last_name" class="form-label">Last Name</label>
+                    {{ form.last_name|add_class:"form-control input-theme" }}
                 </div>
                 <div class="mb-4">
-                    <label for="profile_picture" class="form-label w-100"><strong>Profile Image</strong></label>
-                    {{ form.profile_picture|add_class:"form-control w-100" }}
+                    <label for="profile_picture" class="form-label">Profile Image</label>
+                    {{ form.profile_picture|add_class:"form-control input-theme" }}
                 </div>
                 <hr>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success w-100 py-2">Save Changes</button>
-                    <a href="{% url 'user_profile' %}" class="btn btn-secondary w-100 py-2 mt-2">Cancel</a>
+                <div class="d-flex justify-content-center gap-4">
+                    <button type="submit" class="btn btn-success py-2">Save Changes</button>
+                    <a href="{% url 'user_profile' %}" class="btn btn-secondary py-2">Cancel</a>
                 </div>
             </form>
 
             <!-- Formulário de alteração de senha -->
             <hr class="my-4">
             <h5>Change Password</h5>
-            <form method="post" action="{% url 'password_change' %}">
+            <form method="post" action="{% url 'password_change' %}" class="mb-4">
                 {% csrf_token %}
-                {{ password_form.as_p }}
-                <div class="text-end mt-3">
-                    <button type="submit" class="btn btn-warning">Update Password</button>
+                <div class="mb-4">
+                    <label for="old_password" class="form-label">Old Password</label>
+                    {{ password_form.old_password|add_class:"form-control input-theme" }}
                 </div>
-            </form>
+                <div class="mb-4">
+                    <label for="new_password1" class="form-label">New Password</label>
+                    {{ password_form.new_password1|add_class:"form-control input-theme" }}
+                    {% if password_form.new_password1.help_text %}
+                        <small class="form-text text-muted">{{ password_form.new_password1.help_text }}</small>
+                    {% endif %}
+                </div>
+                <div class="mb-4">
+                    <label for="new_password2" class="form-label">Confirm New Password</label>
+                    {{ password_form.new_password2|add_class:"form-control input-theme" }}
+                </div>
+                {% if password_form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ password_form.non_field_errors }}
+                </div>
+                {% endif %}
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-warning py-2">Update Password</button>
+                </div>
             </form>
         </div>
     </div>
