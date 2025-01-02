@@ -212,7 +212,7 @@ h2 {
 /* Alertas */
 .alert {
     border-radius: 5px;
-    font-weight: bold;
+    font-weight:400;
 }
 
 .alert-warning {
