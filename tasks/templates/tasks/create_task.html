@@ -2,13 +2,18 @@
 {% load widget_tweaks %}
 {% block content %}
 <div class="container mt-5">
+  <!-- Page Title -->
   <h3 class="text-center mb-4">Create New Task</h3>
   <div class="row justify-content-center">
     <div class="col-md-6">
+      <!-- Card Container -->
       <div class="card shadow-lg rounded-lg border-0 card-theme">
         <div class="card-body">
+          <!-- Task Creation Form -->
           <form method="post">
             {% csrf_token %}
+
+            <!-- Task Title Input -->
             <div class="mb-4">
               <label for="title" class="form-label">Task Title</label>
               <input
@@ -20,6 +25,8 @@
                 required
               >
             </div>
+
+            <!-- Description Input -->
             <div class="mb-4">
               <label for="description" class="form-label">Description</label>
               <textarea
@@ -30,6 +37,8 @@
                 placeholder="Add a detailed description..."
               ></textarea>
             </div>
+
+            <!-- Due Date Input -->
             <div class="mb-4">
               <label for="due_date" class="form-label">Due Date</label>
               <input
@@ -40,6 +49,8 @@
                 required
               >
             </div>
+
+            <!-- Category Selector -->
             <div class="mb-4">
               <label for="category" class="form-label">Category</label>
               <select
@@ -52,6 +63,8 @@
                 {% endfor %}
               </select>
             </div>
+
+            <!-- Completed Checkbox -->
             <div class="mb-4 form-check">
               <input
                 type="checkbox"
@@ -61,6 +74,8 @@
               >
               <label for="completed" class="form-check-label">Completed?</label>
             </div>
+
+            <!-- Submit Button -->
             <div class="d-grid gap-2">
               <button
                 type="submit"
@@ -68,6 +83,8 @@
               >Save Task</button>
             </div>
           </form>
+
+          <!-- Back to Task List Link -->
           <div class="mt-4 text-center">
             <a
               href="{% url 'task_list' %}"
@@ -80,5 +97,3 @@
   </div>
 </div>
 {% endblock %}
-
-

@@ -4,26 +4,33 @@
 
 {% block content %}
 <style>
+    /* Page-specific styling: Override default theme with a black background and white text */
     body {
-        background-color: #000 !important; /* Black background */
-        color: #fff; /* White text for contrast */
+        background-color: #000 !important; /* Black background for the home page */
+        color: #fff; /* White text for better contrast */
     }
 </style>
 
+<!-- Video background -->
 <video class="video-background" autoplay muted loop>
+    <!-- Source of the video file -->
     <source src="/media/footages/background-video-home-page.mp4" type="video/mp4">
+    <!-- Fallback message for browsers that do not support the video tag -->
     Your browser does not support the video tag.
 </video>
-<!-- Diagonal grid overlay on the video -->
+
+<!-- Overlay pattern for aesthetic effect -->
 <div class="overlay-pattern"></div>
 
 <!-- Centered content -->
 <div class="home-content">
+    <!-- Main welcome message -->
     <h1>Welcome to <br> Task Management App!</h1>
     <p>Manage your tasks efficiently and effectively.</p>
     <div class="mt-4">
-        <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
-        <a href="{% url 'register' %}" class="btn btn-success">Register</a>
+        <!-- Call-to-action buttons -->
+        <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a> <!-- Link to the login page -->
+        <a href="{% url 'register' %}" class="btn btn-success">Register</a> <!-- Link to the registration page -->
     </div>
 </div>
 {% endblock %}

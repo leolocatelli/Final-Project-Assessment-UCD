@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="d-flex align-items-center mb-4">
+    <!-- User Information -->
     <img 
         src="{{ user.get_profile_picture_url }}" 
         alt="Profile Picture" 
@@ -10,114 +11,117 @@
     >
     <h5 class="mb-0">Welcome, {{ user.first_name }} {{ user.last_name }}</h5>
 </div>
-    <h3 class="mb-4 text-center">Task List</h3>
 
-    <!-- Filter Form -->
-    <form method="get" class="filters mb-4  card-theme">
-        <div class="row g-2">
-            <!-- Filter by Status -->
-            <div class="col-md-3">
-                <label for="status" class="form-label">Status:</label>
-                <select name="status" id="status" class="form-select" onchange="this.form.submit()">
-                    <option value="">All</option>
-                    <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Completed</option>
-                    <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pending</option>
-                </select>
-            </div>
+<!-- Page Title -->
+<h3 class="mb-4 text-center">Task List</h3>
 
-            <!-- Filter by Delay -->
-            <div class="col-md-3">
-                <label for="delay" class="form-label">Delay:</label>
-                <select name="delay" id="delay" class="form-select" onchange="this.form.submit()">
-                    <option value="">All</option>
-                    <option value="delayed" {% if request.GET.delay == 'delayed' %}selected{% endif %}>Delayed</option>
-                </select>
-            </div>
-
-            <!-- Sorting -->
-            <div class="col-md-3">
-                <label for="sort" class="form-label">Sort by:</label>
-                <select name="sort" id="sort" class="form-select" onchange="this.form.submit()">
-                    <option value="due_date" {% if request.GET.sort == 'due_date' %}selected{% endif %}>Due Date (Ascending)</option>
-                    <option value="-due_date" {% if request.GET.sort == '-due_date' %}selected{% endif %}>Due Date (Descending)</option>
-                    <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Title (A-Z)</option>
-                    <option value="-title" {% if request.GET.sort == '-title' %}selected{% endif %}>Title (Z-A)</option>
-                </select>
-            </div>
-
-            <!-- Filter by Category -->
-            <div class="col-md-3">
-                <label for="category" class="form-label">Category:</label>
-                <select name="category" id="category" class="form-select" onchange="this.form.submit()">
-                    <option value="">All</option>
-                    {% for category in categories %}
-                        <option value="{{ category.id }}" {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
-                            {{ category.name }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
+<!-- Filter Form -->
+<form method="get" class="filters mb-4 card-theme">
+    <div class="row g-2">
+        <!-- Filter by Status -->
+        <div class="col-md-3">
+            <label for="status" class="form-label">Status:</label>
+            <select name="status" id="status" class="form-select" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Completed</option>
+                <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pending</option>
+            </select>
         </div>
-    </form>
 
-    <!-- Task List in Kanban Style -->
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for task in tasks %}
-        <div class="col">
-            <div class="card h-100 task-card" style="background-color: {{ task.color }}; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);">
-                <div class="card-body">
-                    <!-- Category with Emoji and Color -->
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="badge badge-category badge-category-{{ task.category.name|default:"uncategorized"|lower|slugify }}">
-                            <strong>{{ task.category.name|default:"Uncategorized" }}</strong>
-                        </div>
+        <!-- Filter by Delay -->
+        <div class="col-md-3">
+            <label for="delay" class="form-label">Delay:</label>
+            <select name="delay" id="delay" class="form-select" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="delayed" {% if request.GET.delay == 'delayed' %}selected{% endif %}>Delayed</option>
+            </select>
+        </div>
+
+        <!-- Sort by -->
+        <div class="col-md-3">
+            <label for="sort" class="form-label">Sort by:</label>
+            <select name="sort" id="sort" class="form-select" onchange="this.form.submit()">
+                <option value="due_date" {% if request.GET.sort == 'due_date' %}selected{% endif %}>Due Date (Ascending)</option>
+                <option value="-due_date" {% if request.GET.sort == '-due_date' %}selected{% endif %}>Due Date (Descending)</option>
+                <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Title (A-Z)</option>
+                <option value="-title" {% if request.GET.sort == '-title' %}selected{% endif %}>Title (Z-A)</option>
+            </select>
+        </div>
+
+        <!-- Filter by Category -->
+        <div class="col-md-3">
+            <label for="category" class="form-label">Category:</label>
+            <select name="category" id="category" class="form-select" onchange="this.form.submit()">
+                <option value="">All</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</form>
+
+<!-- Task List in Kanban Style -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for task in tasks %}
+    <div class="col">
+        <!-- Task Card -->
+        <div class="card h-100 task-card" style="background-color: {{ task.color }}; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);">
+            <div class="card-body">
+                <!-- Category Information -->
+                <div class="d-flex align-items-center mb-3">
+                    <div class="badge badge-category badge-category-{{ task.category.name|default:"uncategorized"|lower|slugify }}">
+                        <strong>{{ task.category.name|default:"Uncategorized" }}</strong>
                     </div>
+                </div>
 
-                    <!-- Task Information -->
-                    <h5 class="card-title">{{ task.title }}</h5>
-                    <p class="card-text">{{ task.description }}</p>
-                    <p class="card-text">Due Date: {{ task.due_date }}</p>
-                    {% if task.due_date < now %}
-                        <p class="alert alert-warning p-2">Delayed Task!</p>
+                <!-- Task Details -->
+                <h5 class="card-title">{{ task.title }}</h5>
+                <p class="card-text">{{ task.description }}</p>
+                <p class="card-text">Due Date: {{ task.due_date }}</p>
+                {% if task.due_date < now %}
+                    <p class="alert alert-warning p-2">Delayed Task!</p>
+                {% endif %}
+                <p class="card-text">Status: 
+                    {% if task.completed %}
+                        <span class="badge bg-success">Completed</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Pending</span>
                     {% endif %}
-                    <p class="card-text">Status: 
-                        {% if task.completed %}
-                            <span class="badge bg-success">Completed</span>
-                        {% else %}
-                            <span class="badge bg-secondary">Pending</span>
-                        {% endif %}
-                    </p>
-                </div>
+                </p>
+            </div>
 
-                <!-- Actions -->
-                <div class="card-footer d-flex justify-content-between">
-                    <a href="{% url 'update_task' task.id %}" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
-                </div>
+            <!-- Task Actions -->
+            <div class="card-footer d-flex justify-content-between">
+                <a href="{% url 'update_task' task.id %}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
 
-    <!-- Button to Create New Task -->
-    <div class="mt-4 text-center">
-        <a href="{% url 'create_task' %}" class="btn btn-success">Create New Task</a>
-    </div>
+<!-- Button to Create New Task -->
+<div class="mt-4 text-center">
+    <a href="{% url 'create_task' %}" class="btn btn-success">Create New Task</a>
+</div>
 
-    <!-- Pagination Controls -->
-    <div class="pagination mt-4">
-        <ul class="pagination justify-content-center">
-            {% if tasks.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ tasks.previous_page_number }}">Previous</a></li>
-            {% endif %}
+<!-- Pagination Controls -->
+<div class="pagination mt-4">
+    <ul class="pagination justify-content-center">
+        {% if tasks.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ tasks.previous_page_number }}">Previous</a></li>
+        {% endif %}
 
-            <li class="page-item disabled"><a class="page-link">Page {{ tasks.number }} of {{ tasks.paginator.num_pages }}</a></li>
+        <li class="page-item disabled"><a class="page-link">Page {{ tasks.number }} of {{ tasks.paginator.num_pages }}</a></li>
 
-            {% if tasks.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ tasks.next_page_number }}">Next</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ tasks.paginator.num_pages }}">Last</a></li>
-            {% endif %}
-        </ul>
-    </div>
+        {% if tasks.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ tasks.next_page_number }}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ tasks.paginator.num_pages }}">Last</a></li>
+        {% endif %}
+    </ul>
+</div>
 {% endblock %}

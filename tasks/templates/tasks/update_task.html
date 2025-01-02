@@ -2,14 +2,19 @@
 
 {% block content %}
 <div class="container mt-5">
+  <!-- Page Title -->
   <h3 class="text-center mb-4">Edit Task</h3>
+
+  <!-- Task Editing Form -->
   <div class="row justify-content-center">
     <div class="col-md-6">
-      
       <div class="card shadow-lg rounded-lg border-0 card-theme">
         <div class="card-body">
+          <!-- Form for Editing Task -->
           <form method="POST">
             {% csrf_token %}
+            
+            <!-- Title Field -->
             <div class="mb-4">
               <label for="title" class="form-label">Title</label>
               <input
@@ -21,6 +26,8 @@
                 required
               >
             </div>
+
+            <!-- Description Field -->
             <div class="mb-4">
               <label for="description" class="form-label">Description</label>
               <textarea
@@ -31,6 +38,8 @@
                 required
               >{{ task.description }}</textarea>
             </div>
+
+            <!-- Due Date Field -->
             <div class="mb-4">
               <label for="due_date" class="form-label">Due Date</label>
               <input
@@ -42,6 +51,8 @@
                 required
               >
             </div>
+
+            <!-- Category Dropdown -->
             <div class="mb-4">
               <label for="category" class="form-label">Category</label>
               <select
@@ -56,6 +67,8 @@
                 {% endfor %}
               </select>
             </div>
+
+            <!-- Completed Checkbox -->
             <div class="mb-4 form-check">
               <input
                 type="checkbox"
@@ -66,6 +79,8 @@
               >
               <label for="completed" class="form-check-label">Completed?</label>
             </div>
+
+            <!-- Submit Button -->
             <div class="d-grid gap-2">
               <button
                 type="submit"
@@ -73,6 +88,8 @@
               >Save Changes</button>
             </div>
           </form>
+
+          <!-- Action Buttons -->
           <div class="mt-4 text-center">
             <a
               href="{% url 'delete_task' task.id %}"
@@ -89,4 +106,3 @@
   </div>
 </div>
 {% endblock %}
-

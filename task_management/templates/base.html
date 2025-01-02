@@ -7,34 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Task Management App{% endblock %}</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS Framework for responsive and modern design -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Optional: seus próprios estilos -->
+    <!-- Custom CSS for additional styling -->
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+    <!-- Google Fonts for emoji support -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Barra de Navegação -->
+    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
+            <!-- App Brand Name linked to Home -->
             <a class="navbar-brand" href="{% url 'home' %}">Task App</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <!-- Link para Home -->
+                    <!-- Links dynamically displayed based on user authentication status -->
+                    <!-- Home -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
-                    <!-- Link para Lista de Tarefas -->
+                    <!-- Task List -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'task_list' %}">Tasks</a>
                     </li>
                     
                     {% if user.is_authenticated %}
-                    <!-- Link para Profile e Logout quando o usuário está logado -->
+                    <!-- User authenticated: Show Profile and Logout -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'user_profile' %}">Profile</a>
                     </li>
@@ -47,7 +51,7 @@
                         </form>
                     </li>
                     {% else %}
-                    <!-- Link para Login e Register quando o usuário não está logado -->
+                    <!-- User not authenticated: Show Login and Register -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
@@ -56,7 +60,7 @@
                     </li>
                     {% endif %}
 
-                    <!-- Botão de alternar tema -->
+                    <!-- Theme Toggle Button -->
                     <li class="nav-item d-flex align-items-center m-2">
                         <div class="form-switch">
                             <input 
@@ -72,46 +76,51 @@
         </div>
     </nav>
 
-    <!-- Conteúdo da Página -->
+    <!-- Page Content Section -->
     <div class="container mt-4">
         {% block content %}
-        <!-- Conteúdo de cada página será inserido aqui -->
+        <!-- Dynamic content will be inserted here -->
         {% endblock %}
     </div>
 
-    <!-- Bootstrap JS (com Popper) -->
+    <!-- Bootstrap JS with Popper.js for interactive elements -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
 <script>
-    // Função para alternar tema
+    /**
+     * Function to toggle between light and dark themes.
+     * Saves user preference in localStorage.
+     */
     function toggleTheme() {
-        const htmlElement = document.documentElement; // Elemento raiz <html>
+        const htmlElement = document.documentElement; // Root <html> element
         const themeSwitch = document.getElementById("theme-switch");
-        const isDark = themeSwitch.checked; // Verifica o estado do switch
+        const isDark = themeSwitch.checked; // Check switch state
 
         if (isDark) {
             htmlElement.classList.add("dark-theme");
-            localStorage.setItem("theme", "dark");
+            localStorage.setItem("theme", "dark"); // Save preference
         } else {
             htmlElement.classList.remove("dark-theme");
-            localStorage.setItem("theme", "light");
+            localStorage.setItem("theme", "light"); // Save preference
         }
 
-        console.log("Tema atual:", isDark ? "dark" : "light"); // Debug no console
+        console.log("Current theme:", isDark ? "dark" : "light"); // Debug
     }
 
-    // Aplica o tema salvo no localStorage ao carregar a página
+    /**
+     * Apply saved theme preference on page load.
+     */
     document.addEventListener("DOMContentLoaded", function () {
-        const savedTheme = localStorage.getItem("theme") || "light";
+        const savedTheme = localStorage.getItem("theme") || "light"; // Default to light
         const themeSwitch = document.getElementById("theme-switch");
 
         if (savedTheme === "dark") {
             document.documentElement.classList.add("dark-theme");
-            themeSwitch.checked = true; // Atualiza o estado do switch
+            themeSwitch.checked = true; // Update switch state
         }
 
-        console.log("Tema inicial:", savedTheme); // Debug no console
+        console.log("Initial theme:", savedTheme); // Debug
     });
 </script>
