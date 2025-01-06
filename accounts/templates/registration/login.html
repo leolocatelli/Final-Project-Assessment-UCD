@@ -1,34 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load widget_tweaks %}
+
+<!-- Container for Login Form -->
 <div class="container mt-5 d-flex justify-content-center">
+    <!-- Card Component -->
     <div class="card card-theme shadow" style="width: 100%; max-width: 500px; padding: 20px;">
+        
+        <!-- Card Header -->
         <div class="card-header text-center bg-primary text-white">
             <h4>Login</h4>
         </div>
+        
+        <!-- Card Body -->
         <div class="card-body">
+            <!-- Login Form -->
             <form method="post" class="mb-4 d-flex flex-column">
                 {% csrf_token %}
+                
+                <!-- Username Field -->
                 <div class="mb-4">
-                    <label for="username" class="form-label w-100 ">Username: </label>
+                    <label for="username" class="form-label w-100">Username:</label>
                     {{ form.username|add_class:"form-control w-100" }}
                 </div>
+                
+                <!-- Password Field -->
                 <div class="mb-4">
-                    <label for="password" class="form-label w-100">Password: </label>
+                    <label for="password" class="form-label w-100">Password:</label>
                     {{ form.password|add_class:"form-control w-100" }}
                 </div>
+                
+                <!-- Non-Field Errors -->
                 {% if form.non_field_errors %}
-                <div class="alert alert-danger text-light ">
+                <div class="alert alert-danger text-light">
                     {{ form.non_field_errors }}
                 </div>
                 {% endif %}
+                
+                <!-- Submit Button -->
                 <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
             </form>
+            
+            <!-- Links for Password Reset and Sign Up -->
             <div class="d-flex justify-content-center d-grid gap-4">
-                <a href="{% url 'password_reset' %}" class="text-primary px-">Forgot Password?</a>
+                <a href="{% url 'password_reset' %}" class="text-primary">Forgot Password?</a>
                 <a href="{% url 'register' %}" class="text-primary">Sign Up</a>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

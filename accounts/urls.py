@@ -2,8 +2,9 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 
+# URL patterns for the accounts app
 urlpatterns = [
-    # Login e Logout
+    # Login and Logout
     path(
         'login/', 
         auth_views.LoginView.as_view(template_name='registration/login.html', next_page='task_list'), 
@@ -15,12 +16,12 @@ urlpatterns = [
         name='logout'
     ),
     
-    # Registro de usuários
-    path('register/', views.register, name='register'),
-    path('profile/', views.user_profile, name='user_profile'),
-    path('profile/edit/', views.edit_profile, name='edit_profile'),
+    # User registration and profile management
+    path('register/', views.register, name='register'),  # User registration
+    path('profile/', views.user_profile, name='user_profile'),  # View user profile
+    path('profile/edit/', views.edit_profile, name='edit_profile'),  # Edit user profile
 
-    # Mudança de senha
+    # Password change functionality
     path(
         'password_change/', 
         auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'), 
@@ -32,7 +33,7 @@ urlpatterns = [
         name='password_change_done'
     ),
     
-    # Reset de senha
+    # Password reset functionality
     path(
         'password_reset/', 
         auth_views.PasswordResetView.as_view(template_name='accounts/password_reset.html'), 

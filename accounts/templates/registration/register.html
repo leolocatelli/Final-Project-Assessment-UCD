@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block content %}
+
+<!-- Registration Page -->
 <div class="container mt-5 d-flex justify-content-center">
+
+    <!-- Card Component -->
     <div class="card card-theme shadow" style="width: 100%; max-width: 500px; padding: 20px;">
+        
+        <!-- Card Header -->
         <div class="card-header text-center bg-primary text-white">
             <h4>Register</h4>
         </div>
+        
+        <!-- Card Body -->
         <div class="card-body">
+
+            <!-- Registration Form -->
             <form method="POST" class="mb-4 d-flex flex-column" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% for field in form %}
+                <!-- Form Field -->
                 <div class="mb-4">
                     <label class="form-label w-100">{{ field.label }}</label>
                     {{ field|add_class:"form-control w-100" }}
@@ -20,12 +31,16 @@
                 {% endfor %}
                 <button type="submit" class="btn btn-success w-100 py-2">Register</button>
             </form>
+
+            <!-- Login Redirect -->
             <div class="d-flex justify-content-center d-grid gap-4">
                 <p class="text-center">
                     Already have an account? <a href="{% url 'login' %}" class="text-primary">Log In</a>
                 </p>
             </div>
+
         </div>
     </div>
 </div>
+
 {% endblock %}

@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+
 {% block content %}
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card shadow card-theme" style="width: 100%; max-width: 800px; padding: 20px;">
+        <!-- Card Header -->
         <div class="card-header bg-primary text-white text-center">
             <h4>Edit Profile</h4>
         </div>
+
+        <!-- Card Body -->
         <div class="card-body">
             <!-- Edit Profile Form -->
             <form method="post" enctype="multipart/form-data" class="mb-4">
@@ -31,13 +35,14 @@
                     {{ form.profile_picture|add_class:"form-control input-theme" }}
                 </div>
                 <hr>
+                <!-- Buttons for Save and Cancel -->
                 <div class="d-flex justify-content-center gap-4">
                     <button type="submit" class="btn btn-success py-2">Save Changes</button>
                     <a href="{% url 'user_profile' %}" class="btn btn-secondary py-2">Cancel</a>
                 </div>
             </form>
 
-            <!-- Formulário de alteração de senha -->
+            <!-- Change Password Section -->
             <hr class="my-4">
             <h5 class="text-center">Change Password</h5>
             <form method="post" action="{% url 'password_change' %}" class="mb-4">

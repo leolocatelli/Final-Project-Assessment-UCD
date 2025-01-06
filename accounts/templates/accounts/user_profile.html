@@ -3,13 +3,14 @@
 
 {% block content %}
 <div class="container mt-5">
+    <!-- User Profile Card -->
     <div class="card shadow card-theme">
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">User Profile</h4>
         </div>
         <div class="card-body">
             <div class="row">
-                <!-- Coluna da imagem de perfil -->
+                <!-- Profile Picture Section -->
                 <div class="col-md-4 text-center">
                     <img 
                         src="{{ user.get_profile_picture_url }}" 
@@ -18,7 +19,7 @@
                         style="width: 150px; height: 150px; object-fit: cover;"
                     />
                 </div>
-                <!-- Coluna das informações -->
+                <!-- User Information Section -->
                 <div class="col-md-8">
                     <div class="mb-3">
                         <label class="form-label">Username</label>
@@ -39,7 +40,7 @@
                 </div>
             </div>
             <hr>
-            <!-- Botão de Editar Perfil -->
+            <!-- Edit Profile Button -->
             <div class="text-end">
                 <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary">Edit Profile</a>
             </div>

@@ -4,8 +4,11 @@
 
 {% block content %}
 <div class="container mt-5 text-center">
+    <!-- Page Title -->
     <h1>You have been logged out</h1>
+    <!-- Subtext Message -->
     <p class="text-muted">Thank you for using Task Management App!</p>
+    <!-- Action Button -->
     <a href="{% url 'login' %}" class="btn btn-primary mt-3">Login Again</a>
 </div>
 {% endblock %}
