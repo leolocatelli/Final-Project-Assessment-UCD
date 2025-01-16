@@ -1,0 +1,48 @@
+name: Run Django Tests
+
+on: [push, pull_request]  # Roda os testes em todo push e pull request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: taskuser
+          POSTGRES_PASSWORD: task-password
+          POSTGRES_DB: task_management
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U taskuser"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Migrations
+        env:
+          DATABASE_URL: "postgres://taskuser:task-password@localhost:5432/task_management"
+        run: |
+          python manage.py migrate
+
+      - name: Run Tests
+        env:
+          DATABASE_URL: "postgres://taskuser:task-password@localhost:5432/task_management"
+        run: |
+          python manage.py test
