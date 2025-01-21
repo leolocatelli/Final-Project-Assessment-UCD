@@ -1,6 +1,6 @@
 name: Run Django Tests
 
-on: [push, pull_request]  # Roda os testes em todo push e pull request
+on: [push, pull_request] 
 
 jobs:
   test:
