@@ -1,6 +1,7 @@
 source venv/bin/activate
 python3 manage.py runserver
 python3 manage.py runserver --verbosity 0
+python3 manage.py runserver --noreload
 pip3 install django-webpack-loader
 
 python3 manage.py makemigrations accounts
