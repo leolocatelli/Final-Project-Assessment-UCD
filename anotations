@@ -63,4 +63,5 @@ psql -U taskuser -d task_management
 \d tasks_task;
 \q
 
-
+taskuser
+task-password

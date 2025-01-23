@@ -80,8 +80,9 @@ WSGI_APPLICATION = 'task_management.wsgi.application'
 # 🛢️ Database configuration (Render or local development)
 DATABASE_URL = os.getenv('DATABASE_URL', 'postgres://taskuser:task-password@localhost:5432/task_management')
 DATABASES = {
-    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
+
 
 # 🔑 Password validation settings
 AUTH_PASSWORD_VALIDATORS = [
