@@ -96,8 +96,13 @@ STATICFILES_DIRS = [BASE_DIR / "task_management/static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configure MEDIA_URL and MEDIA_ROOT for file uploads
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Media settings
+if not DEBUG:  
+    MEDIA_URL = 'https://task-management-leonardo-locatelli.onrender.com/media/'
+    MEDIA_ROOT = '/var/www/task_management/media'
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # WhiteNoise configuration for serving static files in production
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
