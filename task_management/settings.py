@@ -1,10 +1,3 @@
-"""
-Django settings for task_management project.
-
-This file contains configurations for the Django project, including installed applications,
-middleware, database setup, authentication, and static files management.
-"""
-
 from pathlib import Path
 import os
 import dj_database_url  # type: ignore # Database configuration for deployment
@@ -80,9 +73,8 @@ WSGI_APPLICATION = 'task_management.wsgi.application'
 # 🛢️ Database configuration (Render or local development)
 DATABASE_URL = os.getenv('DATABASE_URL', 'postgres://taskuser:task-password@localhost:5432/task_management')
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(default=DATABASE_URL)
 }
-
 
 # 🔑 Password validation settings
 AUTH_PASSWORD_VALIDATORS = [
@@ -103,6 +95,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "task_management/static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Configure MEDIA_URL and MEDIA_ROOT for file uploads
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
