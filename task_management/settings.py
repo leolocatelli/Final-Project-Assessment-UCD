@@ -97,12 +97,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configure MEDIA_URL and MEDIA_ROOT for file uploads
 # Media settings
-if not DEBUG:  
-    MEDIA_URL = 'https://task-management-leonardo-locatelli.onrender.com/media/'
-    MEDIA_ROOT = '/var/www/task_management/media'
-else:
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Para o ambiente local (localhost)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Caminho direto para a pasta 'media' no seu projeto
+
 
 # WhiteNoise configuration for serving static files in production
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -128,15 +126,23 @@ SERVER_EMAIL = EMAIL_HOST_USER
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': 'DEBUG' if DEBUG else 'INFO',
+            'level': 'DEBUG',
+            'propagate': True,
         },
     },
 }
