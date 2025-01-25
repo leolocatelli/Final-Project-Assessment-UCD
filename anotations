@@ -52,6 +52,9 @@ git checkout
 git stash
 git checkout
 
+git branch
+
+
 
 shell
 python3 manage.py shell
