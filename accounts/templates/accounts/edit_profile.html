@@ -30,10 +30,10 @@
                     <label for="last_name" class="form-label">Last Name</label>
                     {{ form.last_name|add_class:"form-control input-theme" }}
                 </div>
-                <div class="mb-4">
+                {% comment %} <div class="mb-4">
                     <label for="profile_picture" class="form-label">Profile Image</label>
                     {{ form.profile_picture|add_class:"form-control input-theme" }}
-                </div>
+                </div> {% endcomment %}
                 <hr>
                 <!-- Buttons for Save and Cancel -->
                 <div class="d-flex justify-content-center gap-4">

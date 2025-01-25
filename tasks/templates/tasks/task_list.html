@@ -3,12 +3,12 @@
 {% block content %}
 <div class="d-flex align-items-center mb-4">
     <!-- User Information -->
-    <img 
+    {% comment %} <img 
         src="{{ user.get_profile_picture_url }}" 
         alt="Profile Picture" 
         class="rounded-circle me-3" 
         style="width: 50px; height: 50px; object-fit: cover; border: 2px solid #ddd;"
-    >
+    > {% endcomment %}
     <h5 class="mb-0">Welcome, {{ user.first_name }} {{ user.last_name }}</h5>
 </div>
 
