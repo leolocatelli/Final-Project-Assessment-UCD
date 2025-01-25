@@ -10,7 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
     """
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'first_name', 'last_name', 'profile_picture')
+        fields = ('username', 'email', 'first_name', 'last_name')  #  'profile_picture'
 
 
 # Custom form for updating user information
@@ -28,7 +28,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'first_name', 'last_name', 'profile_picture')
+        fields = ('username', 'email', 'first_name', 'last_name')  # 'profile_picture'
 
     def save(self, commit=True):
         """
