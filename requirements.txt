@@ -135,3 +135,4 @@ Werkzeug==3.0.3
 whitenoise==6.8.2
 widgetsnbextension==4.0.10
 yarl==1.18.3
+boto3>=1.26.0
