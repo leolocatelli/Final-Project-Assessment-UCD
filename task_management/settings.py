@@ -9,15 +9,17 @@ from pathlib import Path
 import os
 import dj_database_url  # type: ignore # Database configuration for deployment
 from dotenv import load_dotenv  # type: ignore # Load environment variables
+import boto3 # type: ignore
+from storages.backends.s3boto3 import S3Boto3Storage # type: ignore
 
-# Load .env file
+# Load .env file to access the environment variables
 load_dotenv()
 
 # Define the base directory for the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # 🔐 Security settings
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')  # Django secret key, fetched from environment variables
 
 # ⚠️ Debug mode (should be False in production)
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 
     # Third-party apps
     'widget_tweaks',
+    'storages',  # Added for S3 storage
 ]
 
 # 🔄 Middleware configuration
@@ -102,8 +105,22 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "task_management/static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# 🖼️ Media files configuration - Using Amazon S3 to store media files (images, videos, etc.)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Configure S3 for storing media files
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')  # Fetch from environment variables
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')  # Fetch from environment variables
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')  # Your S3 bucket name
+
+# Set the region and custom domain for the S3 bucket
+AWS_S3_REGION_NAME = 'eu-north-1'  # Example: change to your region if different
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+# Update the MEDIA_URL to use the custom S3 domain
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 
 # WhiteNoise configuration for serving static files in production
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
