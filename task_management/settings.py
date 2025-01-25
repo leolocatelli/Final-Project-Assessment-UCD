@@ -98,31 +98,12 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "task_management/static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-<<<<<<< HEAD
 # Configure MEDIA_URL and MEDIA_ROOT for file uploads
 # Media settings
 # Para o ambiente local (localhost)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Caminho direto para a pasta 'media' no seu projeto
 
-=======
-# 🖼️ Media files configuration - Using Amazon S3 to store media files (images, videos, etc.)
-MEDIA_URL = '/media/'
-
-# Configure S3 for storing media files
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')  # Fetch from environment variables
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')  # Fetch from environment variables
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')  # Your S3 bucket name
-
-# Set the region and custom domain for the S3 bucket
-AWS_S3_REGION_NAME = 'eu-north-1'  # Example: change to your region if different
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-
-# Update the MEDIA_URL to use the custom S3 domain
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
->>>>>>> temp-branch
 
 # WhiteNoise configuration for serving static files in production
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
