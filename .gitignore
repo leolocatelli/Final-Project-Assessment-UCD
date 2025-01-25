@@ -1,2 +1,6 @@
 .env
+<<<<<<< HEAD
 anotations
+=======
+.pyc
+>>>>>>> temp-branch
