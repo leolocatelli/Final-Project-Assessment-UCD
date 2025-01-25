@@ -55,7 +55,7 @@
                     <label for="new_password1" class="form-label">New Password</label>
                     {{ password_form.new_password1|add_class:"form-control input-theme" }}
                     {% if password_form.new_password1.help_text %}
-                        <small class="form-text text-muted">{{ password_form.new_password1.help_text }}</small>
+                        <small class="form-text">{{ password_form.new_password1.help_text }}</small>
                     {% endif %}
                 </div>
                 <div class="mb-4">

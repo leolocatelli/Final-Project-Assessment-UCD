@@ -334,6 +334,8 @@ h2 {
     color: var(--bs-light) !important;
 }
 
+
+
 /* Video Background Style */
 .video-background {
     position: fixed;
@@ -412,6 +414,16 @@ nav.navbar {
 .dark-theme .input-theme::placeholder {
     color: var(--text-color); /* Consistent placeholder text color */
 }
+
+.form-text {
+    color: #495057; /* Text color */
+}
+
+.dark-theme .form-text {
+    color: #ffffff; /* Text color */
+}
+
+
 
 /* Responsive Design Adjustments */
 @media (max-width: 768px) {
